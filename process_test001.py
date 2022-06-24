@@ -3,12 +3,12 @@ from airtest.core.api import G
 from airtest.cli.parser import cli_setup
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
 from airtest.core.api import connect_device
-import time
-from airtest.core.cv import loop_find, Template
-from airtest.core.settings import Settings as ST
+# import time
+# from airtest.core.cv import loop_find, Template
+# from airtest.core.settings import Settings as ST
 
 
-device1 = connect_device("Android:///1576457605007R5?cap_method=MINICAP&touch_method=adb")
+device1 = connect_device("Android:///1576457605007R5?cap_method=&touch_method=adb")
 deviceInfo = device()
 # 查詢到cap_method是甚麼
 # print(device1.cap_method)
@@ -33,9 +33,9 @@ deviceInfo = device()
 # time.sleep(3)
 # poco("app").child()[0].child()[0].child()[0].child()[0].child()[1].click()
 # touch(Template(r"C:\Users\norman_cheng\Desktop\airtest_project\test001.air\roll.png", record_pos=(-0.003, 0.703), resolution=(1080, 2400)))
-time.sleep(3)
-test = Template(r"C:\Users\norman_cheng\Desktop\airtest_project\test001.air\roll.png")
-touch(Template(r"C:\Users\norman_cheng\Desktop\airtest_project\test001.air\roll.png", resolution=(1080, 2400)))
+# time.sleep(3)
+# test = Template(r"C:\Users\norman_cheng\Desktop\airtest_project\test001.air\roll.png")
+# touch(Template(r"C:\Users\norman_cheng\Desktop\airtest_project\test001.air\roll.png", resolution=(1080, 2400)))
 
 # pos = loop_find(test)
 #
