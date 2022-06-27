@@ -35,6 +35,6 @@ touch(a)
 # f.close()
 
 # screenshot 可使用
-# screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
 
 
