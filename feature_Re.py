@@ -5,6 +5,7 @@ import copy
 from airtest.utils.logger import get_logger
 from datetime import datetime
 
+from airtest.aircv.error import * # noqa
 from airtest.aircv.utils import check_image_valid, generate_result
 from airtest.aircv.keypoint_base import KeypointMatching
 
@@ -19,9 +20,7 @@ class KAZEMatching(KeypointMatching):
 
     def __init__(self, im_search, im_source, threshold=0.5, rgb=True):
         # super(KeypointMatching, self).__init__()
-        super().__init__()
-        self.im_source = im_source
-        self.im_search = im_search
+        super().__init__(im_search, im_source)
         self.threshold = threshold
         self.rgb = rgb
 
@@ -78,3 +77,41 @@ class KAZEMatching(KeypointMatching):
         color = (0, 0, 255)
         cv2.circle(imageInit, middle_point, 20, color, 5)
         cv2.imwrite(logImage, imageInit)
+
+    def init_detector(self):
+        self.detector = cv2.SIFT_create(edgeThreshold=10)
+
+        # create FlnnMatcher object:
+        self.matcher = cv2.FlannBasedMatcher({'algorithm': 0, 'trees': 5}, dict(checks=50))
+
+    def get_keypoints_and_descriptors(self, image):
+        """獲取圖像特徵點和描述符."""
+        keypoints, descriptors = self.detector.detectAndCompute(image, None)
+        return keypoints, descriptors
+    
+    def match_keypoints(self, des_sch, des_src):
+        """Match descriptors (特徵值匹配)."""
+        return self.matcher.knnMatch(des_sch, des_src, k=2)
+    
+    def _get_key_points(self):
+        self.init_detector()
+        kp_sch, des_sch = self.get_keypoints_and_descriptors(self.im_search)
+        kp_src, des_src = self.get_keypoints_and_descriptors(self.im_source)
+        if len(kp_sch) < 2 or len(kp_src) < 2:
+            raise NoMatchPointError("Not enough feature points in input images !")
+        matches = self.match_keypoints(des_sch, des_src)
+
+        good = []
+        for m, n in matches:
+            if m.distance < self.FILTER_RATIO * n.distance:
+                good.append(m)
+
+        good_diff, diff_good_point = [], [[]]
+        for m in good:
+            diff_point = [int(kp_src[m.trainIdx].pt[0]), int(kp_src[m.trainIdx].pt[1])]
+            if diff_point not in diff_good_point:
+                good_diff.append(m)
+                diff_good_point.append(diff_point)
+        good = good_diff
+
+        return kp_sch, kp_src, good

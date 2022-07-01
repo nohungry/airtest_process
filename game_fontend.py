@@ -9,6 +9,7 @@ from airtest.core.settings import Settings as ST
 from airtest.aircv.keypoint_matching_contrib import SIFTMatching
 from airtest.utils.transform import TargetPos
 
+from feature_Re import KAZEMatching
 import time
 
 real_position = {
@@ -50,8 +51,8 @@ device1 = connect_device("Android:///1576457605007R5?cap_method=minicap&touch_me
 
 # ----------------------------------------------------------------------
 # windows screen 預處理完成, 轉變為CV2格式
-# windowsScreen = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_screen\windows_screen.jpg")
-# screenCV2 = windowsScreen._imread()
+windowsScreen = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_screen\windows_screen.jpg")
+screenCV2 = windowsScreen._imread()
 
 # ----------------------------------------------------------------------
 # targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\windows_spin.jpg")
@@ -76,230 +77,232 @@ touchPos = {}
 # ----------------------------------------------------------------------
 # step01. spin
 for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+    # screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+    # snapshot = Template(screen)
+    # screenCV2 = snapshot._imread()
 
     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\windows_spin.jpg")
     targetCV2 = targetSpin._imread()
 
     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+    ret1 = KAZEMatching(targetCV2, screenCV2, threshold=0.5)
     match_result = ret.find_best_result()
+    test = ret1.find_best_result()
     if match_result != None:
         break
     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-G.DEVICE.touch(pos)
-touchPos["spin"] = pos
-time.sleep(30)
+# pos = TargetPos().getXY(match_result, 5)
+# G.DEVICE.touch(pos)
+# touchPos["spin"] = pos
+# time.sleep(30)
 
-# ----------------------------------------------------------------------
-# step02. addition
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step02. addition
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\addition.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\addition.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-G.DEVICE.touch(pos)
-touchPos["addition"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# G.DEVICE.touch(pos)
+# touchPos["addition"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step03. subtraction
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step03. subtraction
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\subtraction.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\subtraction.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-G.DEVICE.touch(pos)
-touchPos["subtraction"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# G.DEVICE.touch(pos)
+# touchPos["subtraction"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step04. lighting
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step04. lighting
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\lighting.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\lighting.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-G.DEVICE.touch(pos)
-time.sleep(5)
-G.DEVICE.touch(pos)
-touchPos["lighting"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# G.DEVICE.touch(pos)
+# time.sleep(5)
+# G.DEVICE.touch(pos)
+# touchPos["lighting"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step05. loop
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step05. loop
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\loop.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\loop.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-touchPos["loop"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# touchPos["loop"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step06. contents
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step06. contents
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\contents.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\contents.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-G.DEVICE.touch(pos)
-touchPos["contents"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# G.DEVICE.touch(pos)
+# touchPos["contents"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step07. contents inside lobby
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step07. contents inside lobby
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\lobby.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\lobby.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-touchPos["lobby"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# touchPos["lobby"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step08. contents inside record
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step08. contents inside record
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\record.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\record.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-touchPos["record"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# touchPos["record"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step09. contents inside rule
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step09. contents inside rule
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\rule.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\rule.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-touchPos["rule"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# touchPos["rule"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step10. contents inside music setting
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step10. contents inside music setting
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\musicSetting.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\musicSetting.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-touchPos["musicSetting"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# touchPos["musicSetting"] = pos
+# time.sleep(5)
 
-# ----------------------------------------------------------------------
-# step11. contents inside cancel
-for _ in range(10):
-    screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-    snapshot = Template(screen)
-    screenCV2 = snapshot._imread()
+# # ----------------------------------------------------------------------
+# # step11. contents inside cancel
+# for _ in range(10):
+#     screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+#     snapshot = Template(screen)
+#     screenCV2 = snapshot._imread()
 
-    targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\contents_cancel.jpg")
-    targetCV2 = targetSpin._imread()
+#     targetSpin = Template(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\contents_cancel.jpg")
+#     targetCV2 = targetSpin._imread()
 
-    ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
-    match_result = ret.find_best_result()
-    if match_result != None:
-        break
-    time.sleep(2)
+#     ret = SIFTMatching(targetCV2, screenCV2, threshold=0.5)
+#     match_result = ret.find_best_result()
+#     if match_result != None:
+#         break
+#     time.sleep(2)
 
-pos = TargetPos().getXY(match_result, 5)
-G.DEVICE.touch(pos)
-touchPos["cancel"] = pos
-time.sleep(5)
+# pos = TargetPos().getXY(match_result, 5)
+# G.DEVICE.touch(pos)
+# touchPos["cancel"] = pos
+# time.sleep(5)
 
 print(touchPos)
 pass
