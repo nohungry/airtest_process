@@ -1,13 +1,16 @@
+import logging
 import cv2
 import os
 import copy
+import logging
 
 from airtest.utils.logger import get_logger
 from datetime import datetime
 
 from airtest.aircv.error import * # noqa
-from airtest.aircv.utils import check_image_valid, generate_result
+from airtest.aircv.utils import check_image_valid, generate_result, print_run_time
 from airtest.aircv.keypoint_base import KeypointMatching
+
 
 LOGGING = get_logger(__name__)
 
@@ -24,7 +27,8 @@ class KAZEMatching(KeypointMatching):
         self.threshold = threshold
         self.rgb = rgb
 
-    def find_best_result(self):
+    @print_run_time
+    def find_best_result(self, draw=False):
         # 基於KAZE進行圖像辨識, 只篩選出最優區域.
         # step01. confirm image current
         if not check_image_valid(self.im_source, self.im_search):
@@ -60,14 +64,15 @@ class KAZEMatching(KeypointMatching):
         confidence = self._cal_confidence(resize_img)
 
         best_match = generate_result(middle_point, pypts, confidence)
-        LOGGING.debug("[KAZE] threshold=%s, result=%s" % (self.threshold, best_match))
-        self.draw_keypoint(middle_point)
+        LOGGING.warning("[KAZE] threshold=%s, result=%s" % (self.threshold, best_match))
+        if draw == True:
+            self.draw_keypoint(middle_point)
 
         return best_match if confidence >= self.threshold else None
 
     def draw_keypoint(self, middle_point):
         nowTime = datetime.today().strftime("%Y%m%d_%H%M%S")
-        desktop = desktop = os.path.join(os.path.expanduser("~"), "Desktop") + "\\"
+        desktop = os.path.join(os.path.expanduser("~"), "Desktop") + "\\"
         logFolderPath = os.path.join(desktop, r"image_Log")
         if not os.path.exists(logFolderPath):
             os.mkdir(logFolderPath)

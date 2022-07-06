@@ -32,9 +32,9 @@ device1 = connect_device("Android:///1576457605007R5?cap_method=minicap&touch_me
 
 # ----------------------------------------------------------------------
 # screenshot 可使用
-# screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
-# snapshot = Template(screen)
-# screenCV2 = snapshot._imread()
+screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+snapshot = Template(screen)
+screenCV2 = snapshot._imread()
 
 # ----------------------------------------------------------------------
 # 設定圖像辨識的方法為特徵點匹配
@@ -76,7 +76,7 @@ touchPos = {}
 
 # ----------------------------------------------------------------------
 # step01. spin
-for _ in range(10):
+for _ in range(1):
     # screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
     # snapshot = Template(screen)
     # screenCV2 = snapshot._imread()
@@ -88,6 +88,8 @@ for _ in range(10):
     ret1 = KAZEMatching(targetCV2, screenCV2, threshold=0.5)
     match_result = ret.find_best_result()
     test = ret1.find_best_result()
+    print(match_result)
+    print(test)
     if match_result != None:
         break
     time.sleep(2)
