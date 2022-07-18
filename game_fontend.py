@@ -29,7 +29,8 @@ real_position = {
 # 手機連接使用
 # 儲存在G_Class全域裡面
 device1 = connect_device("Android:///1576457605007R5?cap_method=minicap&touch_method=adb")
-
+print("testset")
+pass
 # ----------------------------------------------------------------------
 # screenshot 可使用
 screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
