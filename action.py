@@ -11,13 +11,26 @@ from airtest.core.settings import Settings as ST
 
 # from feature_Re import KAZEMatching
 
-def deviceConnect(uuid=None):
-    if uuid == None:
-        uuid = "1576457605007R5"
-    device = connect_device("Android:///%s?cap_method=minicap&touch_method=adb" % (uuid))
+# def deviceConnect(uuid=None):
+#     if uuid == None:
+#         uuid = "1576457605007R5"
+#     device = connect_device("Android:///%s?cap_method=minicap&touch_method=adb" % (uuid))
     
-    return device
+#     return device
 
+# def deviceConnect(uuid=None):
+#     if uuid == None:
+#         uuid = "1576457605007R5"
+#     device = connect_device("Android://127.0.0.1:5037/%s?cap_method=minicap&touch_method=adb" % (uuid))
+
+#     return device
+
+def deviceRemoteConnect(ip=None):
+    if ip == None:
+        ip = "10.200.8.110:5555"
+    device = connect_device("Android:///%s?cap_method=minicap&touch_method=adb" % (ip))
+
+    return device
 
 def parseImage(path):
     # path: .jpg file

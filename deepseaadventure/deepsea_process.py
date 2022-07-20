@@ -45,7 +45,7 @@ class deepseaImagePos(procedures.procedures):
 
 def deepseaFlow(device, path):
     # 旋轉
-    spinPosition = deepseaImagePos().universal(device, path, TEMP["spin"])
+    spinPosition = deepseaImagePos().universal(device, path, sign=TEMP["spin"])
     # 金額"+"
     additionPosition = deepseaImagePos().universal(device, path, TEMP["addition"])
     # 金額"-"
@@ -71,6 +71,7 @@ def deepseaFlow(device, path):
 
 if __name__ == '__main__':
     import common
-    device = action.deviceConnect()
+    # device = action.deviceConnect()
+    device = action.deviceRemoteConnect()
     path = common.folderRemake(mark=True)
     deepseaFlow(device, path)
