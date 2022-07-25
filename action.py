@@ -7,9 +7,6 @@ from airtest.core.api import G
 from airtest.core.api import connect_device
 from pip import main
 from airtest.core.settings import Settings as ST
-# from airtest.utils.transform import TargetPos
-
-# from feature_Re import KAZEMatching
 
 # def deviceConnect(uuid=None):
 #     if uuid == None:
@@ -47,12 +44,3 @@ def phoneSnapShot(device, path):
     imageCV2 = parseImage(snapshot)
     
     return imageCV2
-
-
-if __name__ == '__main__':
-    android_phone = deviceConnect()
-    folder_path = common.folderRemake(mark=True)
-    snapshotCV2 = phoneSnapShot(android_phone, folder_path)
-    targetCV2 = parseImage(r"C:\Users\norman_cheng\Desktop\airtest001\image\windows_target\windows_spin.jpg")
-
-    pass

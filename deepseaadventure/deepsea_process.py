@@ -1,5 +1,6 @@
 import os
 import sys
+from turtle import position
 
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, parentdir)
@@ -38,6 +39,8 @@ TEMP = {
     "musicsetting": os.path.join(TARGET_DIR, r"musicSetting.jpg"),
     "settingcancel": os.path.join(TARGET_DIR, r"settingcancel.jpg"),
     "cancel": os.path.join(TARGET_DIR, r"contents_cancel.jpg"),
+    "popoutalert": os.path.join(TARGET_DIR, r"popout.jpg"),
+    "confirm": os.path.join(TARGET_DIR, r"confirm.jpg"),
 }
 
 class deepseaImagePos(procedures.procedures):
@@ -76,51 +79,99 @@ class deepseaImagePos(procedures.procedures):
                 return None
 
 def deepseaFlow(device, path):
+    # position record
+    pos = {}
+
     # 旋轉
     spinPosition = deepseaImagePos().universal(device, path, TEMP["spin"])
+    pos["spin"] = spinPosition
+
     # 金額"+"
     additionPosition = deepseaImagePos().universal(device, path, TEMP["addition"])
+    pos["addition"] = additionPosition
+
     # 金額"-"
     subtractionPosition = deepseaImagePos().universal(device, path, TEMP["subtraction01"])
+    pos["subtraction"] = subtractionPosition
+
     # 快速按鈕(highlight)
     lightingPosition = deepseaImagePos().universal(device, path, TEMP["lighting"])
+    pos["lighting"] = lightingPosition
+
     # # 取消快速按鈕(no highlight)
     # lightingPosition = deepseaImagePos().universal(device, path, TEMP["lighting"])
+
     # 循環按鈕
     loopPosition = deepseaImagePos().universal(device, path, TEMP["loop"])
+    pos["loop"] = loopPosition
+
     # 循環設定頁
     autoloopPosition = deepseaImagePos().universal(device, path, TEMP["autoloop"], touch=False)
+    pos["autoloop"] = autoloopPosition
+
     # 循環開始
     autostartPosition = deepseaImagePos().universal(device, path, TEMP["autostart"])
+    pos["autostart"] = autostartPosition
     time.sleep(150)
+
     # # 循環設定頁_取消
     # autocancelPosition = deepseaImagePos().universal(device, path, TEMP["autocancel"])
+    # pos["autocancel"] = autocancelPosition
+
     # 目錄按鈕
     contentsPosition = deepseaImagePos().universal(device, path, TEMP["contents"])
+    pos["contents"] = contentsPosition
+
     # 返回KK大廳
     lobbyPosition = deepseaImagePos().universal(device, path, TEMP["lobby"], touch=False)
+    pos["lobby"] = lobbyPosition
+
     # 注單記錄
     recordPosition = deepseaImagePos().universal(device, path, TEMP["record"])
+    pos["record"] = recordPosition
+
     # 注單記錄_取消
     recordcancelPosition = deepseaImagePos().universal(device, path, TEMP["recordcancel"])
+    pos["recordcancel"] = recordcancelPosition
+
     # 規則頁
     rulePosition = deepseaImagePos().universal(device, path, TEMP["rule"])
+    pos["rule"] = rulePosition
+
     # 規則頁切換
     ruleswitchPosition = deepseaImagePos().universal(device, path, TEMP["ruleswitch"])
+    pos["ruleswitch"] = ruleswitchPosition
+
     # 規則頁_取消
     rulecancelPosition = deepseaImagePos().universal(device, path, TEMP["rulecancel"])
+    pos["rulecancel"] = rulecancelPosition
+
     # 音樂設定
     settingPosition = deepseaImagePos().universal(device, path, TEMP["musicsetting"])
+    pos["musicsetting"] = settingPosition
+
     # 音樂設定_取消
     settingcancelPosition = deepseaImagePos().universal(device, path, TEMP["settingcancel"])
+    pos["settingcancel"] = settingcancelPosition
+
     # cancel
     cancelPosition = deepseaImagePos().universal(device, path, TEMP["cancel"])
+    pos["cancel"] = cancelPosition
+
+    # 未下注警告彈窗
+    time.sleep(200)
+    popoutPosition = deepseaImagePos().universal(device, path, TEMP["popoutalert"], touch=False)
+    pos["popout"] = popoutPosition
+
+    # 未下注警告彈窗_確認
+    confirmPosition = deepseaImagePos().universal(device, path, TEMP["confirm"])
+    pos["confirm"] = confirmPosition
     
+    return pos
 
-
-if __name__ == '__main__':
-    import common
-    device = action.deviceConnect()
-    # device = action.deviceRemoteConnect()
-    path = common.folderRemake(mark=True)
-    deepseaFlow(device, path)
+# if __name__ == '__main__':
+#     import common
+#     device = action.deviceConnect()
+#     # device = action.deviceRemoteConnect()
+#     path = common.folderRemake(mark=True)
+#     deepseaFlow(device, path)
