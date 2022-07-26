@@ -61,7 +61,7 @@ class deepseaImagePos(procedures.procedures):
                 position = TargetPos().getXY(match_result, 5)
                 device.touch(position)
                 time.sleep(10)
-                return position
+                return tuple(position)
 
             elif match_result == None:
                 # raise EOFError("手機當前頁面上沒有找到正確的圖片")
@@ -71,7 +71,7 @@ class deepseaImagePos(procedures.procedures):
         elif touch == False:
             if match_result != None:
                 position = TargetPos().getXY(match_result, 5)
-                return position
+                return tuple(position)
 
             elif match_result == None:
                 errortarget = os.path.basename(sign)
@@ -112,7 +112,10 @@ def deepseaFlow(device, path):
     # 循環開始
     autostartPosition = deepseaImagePos().universal(device, path, TEMP["autostart"])
     pos["autostart"] = autostartPosition
-    time.sleep(150)
+    print("# --------------------------")
+    print("等候120秒")
+    print("# --------------------------")
+    time.sleep(120)
 
     # # 循環設定頁_取消
     # autocancelPosition = deepseaImagePos().universal(device, path, TEMP["autocancel"])
@@ -159,13 +162,21 @@ def deepseaFlow(device, path):
     pos["cancel"] = cancelPosition
 
     # 未下注警告彈窗
-    time.sleep(200)
+    print("# --------------------------")
+    print("等候150秒")
+    print("# --------------------------")
+    time.sleep(150)
     popoutPosition = deepseaImagePos().universal(device, path, TEMP["popoutalert"], touch=False)
     pos["popout"] = popoutPosition
 
     # 未下注警告彈窗_確認
     confirmPosition = deepseaImagePos().universal(device, path, TEMP["confirm"])
     pos["confirm"] = confirmPosition
+
+    # spin
+    # 旋轉
+    spinPosition = deepseaImagePos().universal(device, path, TEMP["spin"])
+    pos["spin"] = spinPosition
     
     return pos
 

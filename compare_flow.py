@@ -1,3 +1,5 @@
+# 比較測試用的code
+
 from airtest.core.api import *
 from airtest.core.api import G
 from airtest.core.api import connect_device

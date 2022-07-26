@@ -13,4 +13,8 @@ if __name__ == '__main__':
     deepseaPos = deepsea.deepsea(device, path)
 
     print(deepseaPos)
+    print("#-----------------")
+    print()
+    for k, v in deepseaPos.items():
+        print(k, "座標點: ", v)
     
