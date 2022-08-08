@@ -41,6 +41,6 @@ def phoneSnapShot(device, path):
     nowTime = datetime.today().strftime("%Y%m%d_%H%M%S")
     filename = os.path.join(path, r"screen_" + nowTime + ".jpg")
     snapshot = device.snapshot(filename=filename, quality=ST.SNAPSHOT_QUALITY)
-    imageCV2 = parseImage(snapshot)
+    imageCV2 = parseImage(filename)
     
     return imageCV2
