@@ -5,7 +5,6 @@ from datetime import datetime
 from airtest.core.api import *
 from airtest.core.api import G
 from airtest.core.api import connect_device
-from pip import main
 from airtest.core.settings import Settings as ST
 
 # def deviceConnect(uuid=None):
