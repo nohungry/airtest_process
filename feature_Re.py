@@ -67,8 +67,12 @@ class KAZEMatching(KeypointMatching):
         LOGGING.warning("[KAZE] threshold=%s, result=%s" % (self.threshold, best_match))
         if draw == True:
             self.draw_keypoint(middle_point)
-
-        return best_match if confidence >= self.threshold else None
+        
+        if confidence >= self.threshold:
+            return best_match, confidence
+        else:
+            return None
+        # return best_match if confidence >= self.threshold else None
 
     def draw_keypoint(self, middle_point):
         nowTime = datetime.today().strftime("%Y%m%d_%H%M%S")
