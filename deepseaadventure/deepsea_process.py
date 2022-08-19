@@ -162,9 +162,9 @@ def deepseaFlow(device, path):
     pos["cancel"] = cancelPosition
 
     # 未下注警告彈窗
-    print("# --------------------------")
-    print("等候150秒")
-    print("# --------------------------")
+    # print("# --------------------------")
+    # print("等候150秒")
+    # print("# --------------------------")
     time.sleep(150)
     popoutPosition = deepseaImagePos().universal(device, path, TEMP["popoutalert"], touch=False)
     pos["popout"] = popoutPosition

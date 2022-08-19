@@ -12,9 +12,8 @@ if __name__ == '__main__':
     deepsea = GameFlow()
     deepseaPos = deepsea.deepsea(device, path)
 
-    print(deepseaPos)
-    print("#-----------------")
-    print()
-    for k, v in deepseaPos.items():
-        print(k, "座標點: ", v)
-    
+    # print(deepseaPos)
+    # print("#-----------------")
+    # print()
+    # for k, v in deepseaPos.items():
+    #     print(k, "座標點: ", v)
