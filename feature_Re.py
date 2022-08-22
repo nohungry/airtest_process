@@ -69,7 +69,8 @@ class KAZEMatching(KeypointMatching):
             self.draw_keypoint(middle_point)
         
         if confidence >= self.threshold:
-            return best_match, confidence
+            best_match_data = {"best_match": best_match, "confidence": confidence}
+            return best_match_data
         else:
             return None
         # return best_match if confidence >= self.threshold else None

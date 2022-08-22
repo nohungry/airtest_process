@@ -12,48 +12,81 @@
 
 #     def 
 
-from sqlalchemy import create_engine, Table, MetaData
+from sqlalchemy import create_engine, Table, MetaData, table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///coordinate.db"
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+# engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 
-Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-session = Session()
+# session = Session()
 
-metadata = MetaData()
+# metadata = MetaData()
 
-base = declarative_base()
+# base = declarative_base()
 
-connection = engine.connect()
+# connection = engine.connect()
 
-ex_table = Table("deepseaposition", metadata, autoload=True, autoload_with=engine)
+# ex_table = Table("deepseaposition", metadata, autoload=True, autoload_with=engine)
 
-ret = session.execute(ex_table.insert(), {"phoneUDID": "1576457605007R5", 
-                                          "spin": "540, 1966",
-                                          "addition": "772, 1905",
-                                          "subtraction": "300, 1904",
-                                          "lighting": "917, 2038",
-                                          "loop": "177, 2022",
-                                          "autoloop": "541, 1117",
-                                          "autostart": "542, 1807",
-                                          "contents": "1016, 1932",
-                                          "lobby": "111, 1946",
-                                          "record": "322, 1949",
-                                          "recordcancel": "None",
-                                          "rule": "539, 1942",
-                                          "ruleswitch": "None",
-                                          "rulecancel": "1002, 287",
-                                          "musicsetting": "757, 1945",
-                                          "settingcancel": "953, 912",
-                                          "cancel": "965, 1903",
-                                          "popout": "537, 1120",
-                                          "confirm": "534, 1278",})
+# ret = session.execute(ex_table.insert(), {"phoneUDID": "1576457605007R5", 
+#                                           "spin": "540, 1966",
+#                                           "addition": "772, 1905",
+#                                           "subtraction": "300, 1904",
+#                                           "lighting": "917, 2038",
+#                                           "loop": "177, 2022",
+#                                           "autoloop": "541, 1117",
+#                                           "autostart": "542, 1807",
+#                                           "contents": "1016, 1932",
+#                                           "lobby": "111, 1946",
+#                                           "record": "322, 1949",
+#                                           "recordcancel": "None",
+#                                           "rule": "539, 1942",
+#                                           "ruleswitch": "None",
+#                                           "rulecancel": "1002, 287",
+#                                           "musicsetting": "757, 1945",
+#                                           "settingcancel": "953, 912",
+#                                           "cancel": "965, 1903",
+#                                           "popout": "537, 1120",
+#                                           "confirm": "534, 1278",})
 
-session.commit()
-res = session.query(ex_table).first()
-print(res)
-pass
+# session.commit()
+# res = session.query(ex_table).first()
+# print(res)
+# pass
+
+
+
+# ----------------------------------------------
+
+def connect_DB():
+    engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+    Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    session = Session()
+    metadata = MetaData()
+    base = declarative_base()
+    connection = engine.connect()
+    return engine, session, metadata, 
+
+def use_table(table, metadata, engine):
+    ex_table = Table(table, metadata, autoload=True, autoload_with=engine)
+
+    return ex_table
+
+def insert_value(session, ex_table, dataform):
+    """
+    session: upstairs session
+    ex_table: upstaris target table
+    dataform: dict type
+    """
+    session.execute(ex_table.insert(), dataform)
+    session.commit()
+
+if __name__ == '__main__':
+    table_name = "deepseaposition"
+    engine, session, metadata = connect_DB()
+    ex_table = use_table(table_name, metadata, engine)
+    insert_value(session, ex_table,)
