@@ -10,6 +10,8 @@ if __name__ == '__main__':
     status = subprocess.call("adb devices", shell=True)
     assert status == 0, "something is wrong"
     device = action.deviceConnect()
+    # phone resolution
+    resolution = action.phoneResolution()
     # device = action.deviceRemoteConnect()
     path = common.folderRemake(mark=True)
     # 深海歷險
