@@ -66,7 +66,13 @@ class deepseaImagePos(procedures.procedures):
             elif match_result == None:
                 errortarget = os.path.basename(sign)
                 print("手機當前頁面上沒有找到正確的圖片_%s" %errortarget)
-                return None
+                none_result = {
+                    "result": None,
+                    "rectangle": None,
+                    "confidence": None,
+                    "time": None
+                }
+                return none_result
         elif touch == False:
             if match_result != None:
                 position = TargetPos().getXY(match_result, 5)
@@ -75,7 +81,13 @@ class deepseaImagePos(procedures.procedures):
             elif match_result == None:
                 errortarget = os.path.basename(sign)
                 print("手機當前頁面上沒有找到正確的圖片_%s" %errortarget)
-                return None
+                none_result = {
+                    "result": None,
+                    "rectangle": None,
+                    "confidence": None,
+                    "time": None
+                }
+                return none_result
 
 def deepseaFlow(device, path):
     # position record
