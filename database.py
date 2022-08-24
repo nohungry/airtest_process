@@ -1,64 +1,8 @@
-# import sqlite3
-
-# coordinate = sqlite3.connect("coordinate.db")
-
-# class Database():
-#     def __init__(self):
-#         self.connection = sqlite3.connect("../coordinate.db")
-#         self.cursor = self.connection.cursor()
-
-#     def db_close(self):
-#         self.connection.close()
-
-#     def 
-
-from sqlalchemy import create_engine, Table, MetaData, table
+from sqlalchemy import create_engine, Table, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "sqlite:///coordinate.db"
-
-# engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
-
-# Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# session = Session()
-
-# metadata = MetaData()
-
-# base = declarative_base()
-
-# connection = engine.connect()
-
-# ex_table = Table("deepseaposition", metadata, autoload=True, autoload_with=engine)
-
-# ret = session.execute(ex_table.insert(), {"phoneUDID": "1576457605007R5", 
-#                                           "spin": "540, 1966",
-#                                           "addition": "772, 1905",
-#                                           "subtraction": "300, 1904",
-#                                           "lighting": "917, 2038",
-#                                           "loop": "177, 2022",
-#                                           "autoloop": "541, 1117",
-#                                           "autostart": "542, 1807",
-#                                           "contents": "1016, 1932",
-#                                           "lobby": "111, 1946",
-#                                           "record": "322, 1949",
-#                                           "recordcancel": "None",
-#                                           "rule": "539, 1942",
-#                                           "ruleswitch": "None",
-#                                           "rulecancel": "1002, 287",
-#                                           "musicsetting": "757, 1945",
-#                                           "settingcancel": "953, 912",
-#                                           "cancel": "965, 1903",
-#                                           "popout": "537, 1120",
-#                                           "confirm": "534, 1278",})
-
-# session.commit()
-# res = session.query(ex_table).first()
-# print(res)
-# pass
-
-
 
 # ----------------------------------------------
 
@@ -84,6 +28,54 @@ def insert_value(session, ex_table, dataform):
     """
     session.execute(ex_table.insert(), dataform)
     session.commit()
+
+def value_transfer(udid, result):
+    """
+    match_result need transfer sqlite column same
+    """
+    dataform = {
+        "phoneUDID": udid,
+        "spin": result["spin"]["result"],
+        "spin_weights": result["spin"]["confidence"],
+        "addition": result["addition"]["result"],
+        "addition_weights": result["addition"]["confidence"],
+        "subtraction": result["subtraction"]["result"],
+        "subtraction_weights": result["subtraction"]["confidence"],
+        "lighting": result["lighting"]["result"],
+        "lighting_weights": result["lighting"]["confidence"],
+        "loop": result["loop"]["result"],
+        "loop_weights": result["loop"]["confidence"],
+        "autoloop": result["autoloop"]["result"],
+        "autoloop_weights": result["autoloop"]["confidence"],
+        "autostart": result["autostart"]["result"],
+        "autostart_weights": result["autostart"]["confidence"],
+        "contents": result["contents"]["result"],
+        "contents_weights": result["contents"]["confidence"],
+        "lobby": result["lobby"]["result"],
+        "lobby_weights": result["lobby"]["confidence"],
+        "record": result["record"]["result"],
+        "record_weights": result["record"]["confidence"],
+        "recordcancel": result["recordcancel"]["result"],
+        "recordcancel_weights": result["recordcancel"]["confidence"],
+        "rule": result["rule"]["result"],
+        "rule_weights": result["rule"]["confidence"],
+        "ruleswitch": result["ruleswitch"]["result"],
+        "ruleswitch_weights": result["ruleswitch"]["confidence"],
+        "rulecancel": result["rulecancel"]["result"],
+        "rulecancel_weights": result["rulecancel"]["confidence"],
+        "musicsetting": result["musicsetting"]["result"],
+        "musicsetting_weights": result["musicsetting"]["confidence"],
+        "settingcancel": result["settingcancel"]["result"],
+        "settingcancel_weights": result["settingcancel"]["confidence"],
+        "cancel": result["cancel"]["result"],
+        "cancel_weights": result["cancel"]["confidence"],
+        "popout": result["popout"]["result"],
+        "popout_weights": result["popout"]["confidence"],
+        "confirm": result["confirm"]["result"],
+        "confirm_weights": result["confirm"]["confidence"],
+        }
+
+    return dataform
 
 # if __name__ == '__main__':
 
