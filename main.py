@@ -61,6 +61,11 @@ if __name__ == '__main__':
         "confirm_weights": deepseaPos["confirm"]["confidence"],
     }
 
+    table_name = "deepseaposition"
+    engine, session, metadata = database.connect_DB()
+    ex_table = database.use_table(table_name, metadata, engine)
+    database.insert_value(session, ex_table, dataform)
+
     # print(deepseaPos)
     # print("#-----------------")
     # print()

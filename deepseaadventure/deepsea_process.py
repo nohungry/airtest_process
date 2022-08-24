@@ -61,6 +61,7 @@ class deepseaImagePos(procedures.procedures):
                 position = TargetPos().getXY(match_result, 5)
                 device.touch(position)
                 time.sleep(10)
+                match_result["result"] = ", ".join(map(str, match_result["result"]))
                 return match_result
 
             elif match_result == None:
@@ -76,6 +77,7 @@ class deepseaImagePos(procedures.procedures):
         elif touch == False:
             if match_result != None:
                 position = TargetPos().getXY(match_result, 5)
+                match_result["result"] = ", ".join(map(str, match_result["result"]))
                 return match_result
 
             elif match_result == None:
