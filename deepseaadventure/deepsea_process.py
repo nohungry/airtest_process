@@ -14,33 +14,59 @@ from airtest.utils.transform import TargetPos
 from feature_Re import KAZEMatching
 
 DIR_NAME = os.path.dirname(__file__)
-TARGET_DIR = os.path.join(DIR_NAME, r"deepsea_target")
+# TARGET_DIR = os.path.join(DIR_NAME, r"deepsea_target")
+TARGET_DIR = os.path.join(DIR_NAME, r"deepsea_target2")
+
+# TEMP = {
+#     "spin": os.path.join(TARGET_DIR, r"spin.jpg"),
+#     "addition": os.path.join(TARGET_DIR, r"addition.jpg"),
+#     # -----------------------------------------------------------
+#     "subtraction": os.path.join(TARGET_DIR, r"subtraction.jpg"),
+#     "subtraction01": os.path.join(TARGET_DIR, r"subtraction01.jpg"),
+#     "subtraction02": os.path.join(TARGET_DIR, r"subtraction02.jpg"),
+#     # -----------------------------------------------------------
+#     "lighting": os.path.join(TARGET_DIR, r"lighting.jpg"),
+#     "loop": os.path.join(TARGET_DIR, r"loop.jpg"),
+#     "autoloop": os.path.join(TARGET_DIR, r"autoloop.jpg"),
+#     "autostart": os.path.join(TARGET_DIR, r"autostart.jpg"),
+#     "autocancel": os.path.join(TARGET_DIR, r"autocancel.jpg"),
+#     "contents": os.path.join(TARGET_DIR, r"contents.jpg"),
+#     "lobby": os.path.join(TARGET_DIR, r"lobby.jpg"),
+#     "record": os.path.join(TARGET_DIR, r"record.jpg"),
+#     "recordcancel": os.path.join(TARGET_DIR, r"recordcancel.jpg"),
+#     "rule": os.path.join(TARGET_DIR, r"rule.jpg"),
+#     "ruleswitch": os.path.join(TARGET_DIR, r"ruleswitch.jpg"),
+#     "rulecancel": os.path.join(TARGET_DIR, r"rulecancel.jpg"),
+#     "musicsetting": os.path.join(TARGET_DIR, r"musicSetting.jpg"),
+#     "settingcancel": os.path.join(TARGET_DIR, r"settingcancel.jpg"),
+#     "cancel": os.path.join(TARGET_DIR, r"contents_cancel.jpg"),
+#     "popoutalert": os.path.join(TARGET_DIR, r"popout.jpg"),
+#     "confirm": os.path.join(TARGET_DIR, r"confirm.jpg"),
+# }
 
 TEMP = {
-    "spin": os.path.join(TARGET_DIR, r"spin.jpg"),
-    "addition": os.path.join(TARGET_DIR, r"addition.jpg"),
+    "spin": os.path.join(TARGET_DIR, r"spin.png"),
+    "addition": os.path.join(TARGET_DIR, r"addition.png"),
     # -----------------------------------------------------------
-    "subtraction": os.path.join(TARGET_DIR, r"subtraction.jpg"),
-    "subtraction01": os.path.join(TARGET_DIR, r"subtraction01.jpg"),
-    "subtraction02": os.path.join(TARGET_DIR, r"subtraction02.jpg"),
+    "subtraction": os.path.join(TARGET_DIR, r"subtraction.png"),
     # -----------------------------------------------------------
-    "lighting": os.path.join(TARGET_DIR, r"lighting.jpg"),
-    "loop": os.path.join(TARGET_DIR, r"loop.jpg"),
+    "lighting": os.path.join(TARGET_DIR, r"lighting.png"),
+    "loop": os.path.join(TARGET_DIR, r"loop.png"),
     "autoloop": os.path.join(TARGET_DIR, r"autoloop.jpg"),
-    "autostart": os.path.join(TARGET_DIR, r"autostart.jpg"),
-    "autocancel": os.path.join(TARGET_DIR, r"autocancel.jpg"),
-    "contents": os.path.join(TARGET_DIR, r"contents.jpg"),
-    "lobby": os.path.join(TARGET_DIR, r"lobby.jpg"),
-    "record": os.path.join(TARGET_DIR, r"record.jpg"),
+    "autostart": os.path.join(TARGET_DIR, r"autostart_word.png"),
+    "autocancel": os.path.join(TARGET_DIR, r"autocancel.png"),
+    "contents": os.path.join(TARGET_DIR, r"contents.png"),
+    "lobby": os.path.join(TARGET_DIR, r"lobby.png"),
+    "record": os.path.join(TARGET_DIR, r"record.png"),
     "recordcancel": os.path.join(TARGET_DIR, r"recordcancel.jpg"),
-    "rule": os.path.join(TARGET_DIR, r"rule.jpg"),
-    "ruleswitch": os.path.join(TARGET_DIR, r"ruleswitch.jpg"),
-    "rulecancel": os.path.join(TARGET_DIR, r"rulecancel.jpg"),
-    "musicsetting": os.path.join(TARGET_DIR, r"musicSetting.jpg"),
-    "settingcancel": os.path.join(TARGET_DIR, r"settingcancel.jpg"),
-    "cancel": os.path.join(TARGET_DIR, r"contents_cancel.jpg"),
-    "popoutalert": os.path.join(TARGET_DIR, r"popout.jpg"),
-    "confirm": os.path.join(TARGET_DIR, r"confirm.jpg"),
+    "rule": os.path.join(TARGET_DIR, r"rule.png"),
+    "ruleswitch": os.path.join(TARGET_DIR, r"ruleswitch.png"),
+    "rulecancel": os.path.join(TARGET_DIR, r"rulecancel.png"),
+    "musicsetting": os.path.join(TARGET_DIR, r"musicSetting.png"),
+    "settingcancel": os.path.join(TARGET_DIR, r"settingcancel.png"),
+    "cancel": os.path.join(TARGET_DIR, r"contents_cancel.png"),
+    "popoutalert": os.path.join(TARGET_DIR, r"popout_message.png"),
+    "confirm": os.path.join(TARGET_DIR, r"confirm_word.png"),
 }
 
 class deepseaImagePos(procedures.procedures):
@@ -104,7 +130,7 @@ def deepseaFlow(device, path):
     pos["addition"] = additionPosition
 
     # 金額"-"
-    subtractionPosition = deepseaImagePos().universal(device, path, TEMP["subtraction01"])
+    subtractionPosition = deepseaImagePos().universal(device, path, TEMP["subtraction"])
     pos["subtraction"] = subtractionPosition
 
     # 快速按鈕(highlight)
@@ -143,11 +169,11 @@ def deepseaFlow(device, path):
     pos["lobby"] = lobbyPosition
 
     # 注單記錄
-    recordPosition = deepseaImagePos().universal(device, path, TEMP["record"])
+    recordPosition = deepseaImagePos().universal(device, path, TEMP["record"],  touch=False)
     pos["record"] = recordPosition
 
     # 注單記錄_取消
-    recordcancelPosition = deepseaImagePos().universal(device, path, TEMP["recordcancel"])
+    recordcancelPosition = deepseaImagePos().universal(device, path, TEMP["recordcancel"], touch=False)
     pos["recordcancel"] = recordcancelPosition
 
     # 規則頁
