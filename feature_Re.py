@@ -63,12 +63,17 @@ class KAZEMatching(KeypointMatching):
         resize_img = cv2.resize(target_img, (w, h))
         confidence = self._cal_confidence(resize_img)
 
-        best_match = generate_result(middle_point, pypts, confidence)
-        LOGGING.warning("[KAZE] threshold=%s, result=%s" % (self.threshold, best_match))
+        match_result = generate_result(middle_point, pypts, confidence)
+        LOGGING.warning("[KAZE] threshold=%s, result=%s" % (self.threshold, match_result))
         if draw == True:
             self.draw_keypoint(middle_point)
-
-        return best_match if confidence >= self.threshold else None
+        
+        # if confidence >= self.threshold:
+        #     best_match_data = {"best_match": best_match, "confidence": confidence}
+        #     return best_match_data
+        # else:
+        #     return None
+        return match_result if confidence >= self.threshold else None
 
     def draw_keypoint(self, middle_point):
         nowTime = datetime.today().strftime("%Y%m%d_%H%M%S")

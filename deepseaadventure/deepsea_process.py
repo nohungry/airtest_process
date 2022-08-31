@@ -61,22 +61,35 @@ class deepseaImagePos(procedures.procedures):
                 position = TargetPos().getXY(match_result, 5)
                 device.touch(position)
                 time.sleep(10)
-                return tuple(position)
+                match_result["result"] = ", ".join(map(str, match_result["result"]))
+                return match_result
 
             elif match_result == None:
-                # raise EOFError("手機當前頁面上沒有找到正確的圖片")
                 errortarget = os.path.basename(sign)
                 print("手機當前頁面上沒有找到正確的圖片_%s" %errortarget)
-                return None
+                none_result = {
+                    "result": None,
+                    "rectangle": None,
+                    "confidence": None,
+                    "time": None
+                }
+                return none_result
         elif touch == False:
             if match_result != None:
                 position = TargetPos().getXY(match_result, 5)
-                return tuple(position)
+                match_result["result"] = ", ".join(map(str, match_result["result"]))
+                return match_result
 
             elif match_result == None:
                 errortarget = os.path.basename(sign)
                 print("手機當前頁面上沒有找到正確的圖片_%s" %errortarget)
-                return None
+                none_result = {
+                    "result": None,
+                    "rectangle": None,
+                    "confidence": None,
+                    "time": None
+                }
+                return none_result
 
 def deepseaFlow(device, path):
     # position record

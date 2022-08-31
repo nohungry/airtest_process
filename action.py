@@ -28,6 +28,13 @@ def deviceRemoteConnect(ip=None):
 
     return device
 
+def phoneResolution():
+    phone_resolution = {}
+    phone_resolution["height"] = G.DEVICE.display_info["height"]
+    phone_resolution["width"] = G.DEVICE.display_info["width"]
+
+    return phone_resolution
+
 def parseImage(path):
     # path: .jpg file
     # 同時套上airtest.core.api class Template
