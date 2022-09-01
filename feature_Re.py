@@ -1,8 +1,6 @@
-import logging
 import cv2
 import os
 import copy
-import logging
 
 from airtest.utils.logger import get_logger
 from datetime import datetime
